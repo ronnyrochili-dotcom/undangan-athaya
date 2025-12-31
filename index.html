@@ -2,63 +2,65 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <title>Undangan Tasmiyah & Aqiqah - Athaya Myesha Safiyyah</title>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Undangan Athaya Myesha Safiyyah</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
-    html, body { height: 100%; margin: 0; padding: 0; width: 100%; overflow-x: hidden; background: #fdf2f8; }
+    /* CSS UNTUK FULL WINDOW SEJAK AWAL */
+    html, body { height: 100dvh; margin: 0; padding: 0; width: 100%; overflow: hidden; background: #fdf2f8; }
     body { font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; }
     .font-playfair { font-family: 'Playfair Display', serif; }
-    .main-wrapper { background: linear-gradient(180deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%); position: relative; min-height: 100vh; width: 100%; }
     
-    #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #fdf2f8, #fbcfe8); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 1s ease; }
-    #qris-modal, #admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
+    .main-wrapper { 
+      background: linear-gradient(180deg, #fdf2f8 0%, #fce7f3 50%, #fbcfe8 100%); 
+      position: relative; height: 100dvh; width: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch;
+    }
+    
+    #overlay { 
+      position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; 
+      background: linear-gradient(to bottom, #fdf2f8, #fbcfe8); z-index: 1000; 
+      display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 1s ease; 
+    }
+
+    #qris-modal, #admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; background: rgba(0,0,0,0.9); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
     
     .floating-music { position: fixed; bottom: 20px; left: 20px; z-index: 500; background: #ec4899; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(236,72,153,0.4); cursor: pointer; }
-    .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 10px 30px rgba(236, 72, 153, 0.05); }
-    .btn-primary { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white; font-weight: bold; border-radius: 1rem; transition: transform 0.2s; }
-    .btn-primary:active { transform: scale(0.95); }
+    .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.4); }
+    .btn-primary { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white; font-weight: bold; border-radius: 1rem; }
+    .img-gallery { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .countdown-box { background: white; border-radius: 12px; padding: 10px; min-width: 65px; border: 1px solid #f9a8d4; text-align: center; }
     
-    .floating-ornament { position: absolute; opacity: 0.1; pointer-events: none; mix-blend-mode: multiply; will-change: transform; }
+    .floating-ornament { position: absolute; opacity: 0.12; pointer-events: none; mix-blend-mode: multiply; will-change: transform; }
     .bounce-soft { animation: bounce-soft 8s ease-in-out infinite; }
     @keyframes bounce-soft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-    .float-slow { animation: float-slow 12s ease-in-out infinite; }
-    @keyframes float-slow { 0%, 100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(15px, -10px) rotate(5deg); } }
-
-    .img-gallery { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
-    .countdown-box { background: white; border-radius: 12px; padding: 10px; min-width: 65px; border: 1px solid #f9a8d4; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
   </style>
 </head>
 <body>
 
-  <audio id="myAudio" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="myAudio" loop><source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg"></audio>
 
-  <div class="floating-music" onclick="toggleMusic()">
-    <span id="music-icon">🎵</span>
-  </div>
-
-  <div onclick="openAdmin()" class="fixed bottom-5 right-5 z-[600] opacity-10 p-2 text-[10px] text-pink-600 font-bold uppercase cursor-pointer tracking-widest">🔑 Admin</div>
+  <div class="floating-music" onclick="toggleMusic()"><span id="music-icon">🎵</span></div>
+  <div onclick="openAdmin()" class="fixed bottom-5 right-5 z-[600] opacity-10 p-2 text-[10px] text-pink-600 font-bold uppercase cursor-pointer">🔑 Admin</div>
 
   <div id="qris-modal" onclick="closeModal()">
-    <div class="bg-white p-6 rounded-3xl max-w-sm w-full text-center relative shadow-2xl" onclick="event.stopPropagation()">
+    <div class="bg-white p-6 rounded-3xl max-w-sm w-full text-center relative" onclick="event.stopPropagation()">
       <button class="absolute top-2 right-4 text-gray-400 text-3xl leading-none" onclick="closeModal()">×</button>
-      <h3 class="text-pink-700 font-bold text-xl mb-4 font-playfair uppercase tracking-widest">Kado Digital</h3>
+      <h3 class="text-pink-700 font-bold text-xl mb-4 font-playfair uppercase">Kado Digital</h3>
       <img src="https://i.ibb.co.com/ch4xWYSW/Qris-RAMME-STORE.jpg" class="w-full h-auto rounded-xl shadow-md border" alt="QRIS">
-      <p class="mt-4 font-bold text-pink-600 italic uppercase text-[10px]">Terima Kasih Atas Doa & Kasih Sayangnya</p>
+      <p class="mt-4 font-bold text-pink-600 italic uppercase text-[10px]">Terima Kasih Atas Doa & Kadonya</p>
     </div>
   </div>
 
-  <div id="admin-modal" class="fixed inset-0 bg-black/90 z-[3000] hidden items-center justify-center p-4">
+  <div id="admin-modal" class="fixed inset-0 z-[3000] hidden items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 overflow-hidden flex flex-col max-h-[90vh] shadow-2xl">
       <div class="flex justify-between items-center mb-4 border-b pb-2">
-        <h3 class="text-pink-700 font-bold font-playfair">Data Konfirmasi Tamu</h3>
+        <h3 class="text-pink-700 font-bold font-playfair">Data Tamu</h3>
         <div class="flex gap-2">
           <button onclick="exportExcel()" id="btn-export" class="hidden bg-green-600 text-white text-[10px] px-3 py-1 rounded-lg font-bold">Export Excel</button>
           <button onclick="closeAdmin()" class="text-3xl text-gray-400">×</button>
@@ -82,10 +84,10 @@
   <div id="overlay">
     <div class="text-center p-6 relative z-[1100]">
       <div class="text-7xl mb-6 animate-bounce">👶</div>
-      <h2 class="text-pink-700 font-playfair text-xl tracking-widest mb-3 uppercase font-bold text-center">Undangan<br>Tasmiyah & Aqiqah</h2>
+      <h2 class="text-pink-700 font-playfair text-xl tracking-widest mb-3 uppercase font-bold text-center">Undangan Syukuran</h2>
       <h1 class="text-pink-600 font-playfair text-4xl font-bold mb-8 leading-tight text-center">Athaya Myesha Safiyyah</h1>
       <div class="mb-10 text-center">
-        <p class="text-gray-500 text-xs italic mb-2 tracking-widest uppercase">Dengan Hormat Kami Mengundah Bapak/Ibu/Saudara/i:</p>
+        <p class="text-gray-500 text-xs italic mb-2 tracking-widest uppercase">Dengan Hormat Mengundang Bapak/Ibu/Saudara/i:</p>
         <h3 id="nama-tamu-display" class="text-pink-800 font-bold text-2xl px-6 py-2 border-y-2 border-pink-200 inline-block font-playfair italic">Tamu Undangan</h3>
       </div>
       <button onclick="bukaUndangan()" class="btn-primary px-12 py-4 rounded-full shadow-xl uppercase tracking-widest text-sm">Buka Undangan</button>
@@ -94,18 +96,16 @@
 
   <div class="main-wrapper">
     <svg class="floating-ornament bounce-soft" style="top: 5%; left: -5%; width: 150px; height: 150px;" viewbox="0 0 100 100"><circle cx="25" cy="25" r="15" fill="#fcd34d"/><circle cx="75" cy="25" r="15" fill="#fcd34d"/><ellipse cx="50" cy="70" rx="28" ry="32" fill="#d97706"/><circle cx="50" cy="40" r="25" fill="#fcd34d"/><circle cx="41" cy="38" r="4" fill="#1f2937"/><circle cx="59" cy="38" r="4" fill="#1f2937"/></svg>
-    <svg class="floating-ornament float-slow" style="top: 25%; right: -5%; width: 100px; height: 130px;" viewbox="0 0 100 120"><path d="M 38 35 L 35 95 Q 35 105 50 105 Q 65 105 65 95 L 62 35 Z" fill="white" stroke="#f472b6" stroke-width="2"/><rect x="35" y="25" width="30" height="10" rx="4" fill="#ec4899"/></svg>
 
     <div class="max-w-md mx-auto px-6 py-12 relative z-10 text-center">
-      
       <section class="mb-16">
         <p class="text-3xl text-pink-700 mb-6 font-bold" style="font-family: 'Times New Roman';">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
         <p class="text-sm text-pink-600 italic font-light">"Dengan Menyebut Nama Allah Yang Maha Pengasih Lagi Maha Penyayang"</p><br>
-        <p class="text-sm text-pink-600 italic font-light">Merupakan suatu kehormatan dan kebahagiaan bagi Kami<br>Apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa kepada:</p>
+        <p class="text-sm text-pink-600 italic font-light">Merupakan suatu kehormatan dan kebahagiaan<br>Apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa kepada:</p>
         <h2 class="text-5xl font-bold text-pink-700 font-playfair mb-4 leading-tight">Athaya Myesha Safiyyah</h2>
         <div class="h-1 w-20 bg-pink-400 mx-auto mb-8 rounded-full"></div>
-        <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-2 italic">Putri Ke Empat Kami:</p>
-        <p class="text-2xl font-bold text-pink-600 font-playfair uppercase">RONNY & MERRY</p>
+        <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-2 italic">Putri Ke Empat dari:</p>
+        <p class="text-2xl font-bold text-pink-600 font-playfair uppercase">Ronny & Merry</p>
       </section>
 
       <section class="glass-card p-6 mb-12">
@@ -120,10 +120,9 @@
 
       <section class="glass-card p-8 mb-16 space-y-4">
         <p class="font-bold text-gray-800 text-lg">Jum'at, 16 Januari 2026</p>
-        <p class="text-gray-800 font-medium">Pukul 09.00 WIB - Selesai</p>
-        <div class="h-[1px] bg-pink-100 my-2"></div>
+        <p class="text-gray-800 font-medium">09.00 WIB - Selesai</p>
         <p class="text-gray-600 text-sm italic">Jl. Bumi Raya 1 Gg. Maju Bersama Jalur 3 No. 99, Kel. Baamang Barat, Sampit</p>
-        <a href="https://maps.google.com" target="_blank" class="block w-full btn-primary py-4 shadow-lg text-sm uppercase tracking-widest">Buka Google Maps</a>
+        <a href="usercontent.com/maps.google.com/2" target="_blank" class="block w-full btn-primary py-4 shadow-lg text-sm uppercase">Buka Google Maps</a>
       </section>
 
       <section class="mb-16">
@@ -136,72 +135,58 @@
 
       <section class="glass-card p-8 mb-16">
         <h3 class="text-xl font-bold text-pink-700 font-playfair mb-4 italic">Kado Digital</h3>
-        <p class="text-gray-600 text-[11px] mb-8 leading-relaxed">Tanpa mengurangi rasa hormat, Bapak/Ibu/Saudara/i dapat memberikan Kado Tanda Kasi secara digital melalui QRIS:</p>
-        <button onclick="openModal()" class="w-full bg-white border-2 border-pink-400 text-pink-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 active:bg-pink-50">
-          <span>📸</span> TAMPILKAN QRIS
-        </button>
+        <p class="text-gray-600 text-sm mb-6">Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i dapat memberikan Kado Tanda Kasih secara digital melalui Qris:</p>
+        <button onclick="openModal()" class="w-full bg-white border-2 border-pink-400 text-pink-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3"><span>📸</span> TAMPILKAN QRIS</button>
       </section>
 
       <section class="glass-card p-8 mb-12">
         <h3 class="text-xl font-bold text-pink-700 font-playfair mb-6 text-center italic">Konfirmasi Kehadiran</h3>
         <form id="rsvp-form" onsubmit="handleFormSubmit(this)">
           <div class="space-y-4 text-left">
-            <input type="text" name="nama" placeholder="Nama Lengkap" required class="w-full p-4 rounded-xl border border-pink-200 outline-none focus:border-pink-500 transition-all">
-            <select name="kehadiran" class="w-full p-4 rounded-xl border border-pink-200 bg-white">
-              <option value="Hadir">Insya Allah Hadir</option>
-              <option value="Berhalangan">Berhalangan Hadir</option>
-            </select>
-            <textarea name="pesan" rows="4" placeholder="Doa & Harapan untuk Athaya..." required class="w-full p-4 rounded-xl border border-pink-200 outline-none focus:border-pink-500 transition-all"></textarea>
+            <input type="text" name="nama" placeholder="Nama Lengkap" required class="w-full p-4 rounded-xl border border-pink-200 outline-none focus:border-pink-500">
+            <select name="kehadiran" class="w-full p-4 rounded-xl border border-pink-200 bg-white"><option value="Hadir">Insya Allah Hadir</option><option value="Berhalangan">Berhalangan Hadir</option></select>
+            <textarea name="pesan" rows="4" placeholder="Doa & Harapan..." required class="w-full p-4 rounded-xl border border-pink-200 outline-none focus:border-pink-500"></textarea>
             <button type="submit" id="submit-btn" class="w-full btn-primary py-4 shadow-xl uppercase tracking-widest">Kirim Konfirmasi</button>
           </div>
         </form>
         <p id="success-msg" class="hidden text-center mt-6 p-4 bg-green-50 text-green-700 rounded-xl font-bold italic shadow-inner">Syukron! Pesan Anda telah kami terima. ✨</p>
       </section>
 
-      <footer class="text-gray-400 text-[9px] tracking-[0.3em] uppercase pb-10">© 2026 Created By Ramme Project</footer>
+      <footer class="text-gray-400 text-[9px] tracking-[0.3em] uppercase pb-10">© 2026 Created by RAMME Project </footer>
     </div>
   </div>
 
   <script>
-    // ================= PENGATURAN API (ISI DI SINI) =================
+    // ================= PENGATURAN API =================
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxTIAk7Fr9r-5tC6amGarx5MoTwiIuPy0cLaGm3jCRxFPglKSq-ezR4KwynUbyM8FQ/exec"; 
-    // ================================================================
+    // ===================================================
 
     const audio = document.getElementById("myAudio");
     let masterData = [];
 
-    // Fungsi Buka Undangan & Fullscreen
     function bukaUndangan() {
       const docElm = document.documentElement;
       if (docElm.requestFullscreen) { docElm.requestFullscreen(); }
-      else if (docElm.webkitRequestFullscreen) { docElm.webkitRequestFullscreen(); }
-
       document.getElementById("overlay").style.opacity = "0";
       setTimeout(() => { document.getElementById("overlay").style.display = "none"; }, 1000);
       audio.play();
       document.getElementById("music-icon").innerHTML = "⏸️";
     }
 
-    // Ambil Nama Tamu dari URL
     const urlParams = new URLSearchParams(window.location.search);
     const namaTamu = urlParams.get('to');
-    if (namaTamu) {
-      document.getElementById("nama-tamu-display").innerText = namaTamu.replace(/\+/g, ' ');
-    }
+    if (namaTamu) { document.getElementById("nama-tamu-display").innerText = namaTamu.replace(/\+/g, ' '); }
 
-    // Musik Toggle
     function toggleMusic() {
       if (audio.paused) { audio.play(); document.getElementById("music-icon").innerHTML = "⏸️"; }
       else { audio.pause(); document.getElementById("music-icon").innerHTML = "🎵"; }
     }
 
-    // Modals
-    function openModal() { document.getElementById("qris-modal").style.display = "flex"; }
     function closeModal() { document.getElementById("qris-modal").style.display = "none"; }
+    function openModal() { document.getElementById("qris-modal").style.display = "flex"; }
     function openAdmin() { document.getElementById("admin-modal").style.display = "flex"; }
     function closeAdmin() { document.getElementById("admin-modal").style.display = "none"; }
 
-    // Admin Login
     function loginAdmin() {
       if (document.getElementById("pass-field").value === "admin191919") {
         document.getElementById("admin-login").classList.add("hidden");
@@ -211,7 +196,6 @@
       } else { alert("Password Salah!"); }
     }
 
-    // Load Data (Admin) via Fetch
     function loadData() {
       const tbody = document.getElementById("guest-rows");
       tbody.innerHTML = "<tr><td colspan='3' class='p-4 text-center italic'>Memuat data...</td></tr>";
@@ -222,38 +206,28 @@
           tbody.innerHTML = "";
           data.slice().reverse().forEach(r => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `<td class="p-2 border border-pink-50 font-bold text-gray-700">${r[1]}</td><td class="p-2 border border-pink-50 text-center">${r[2]}</td><td class="p-2 border border-pink-50 text-gray-500 italic">${r[3]}</td>`;
+            tr.innerHTML = `<td class="p-2 border border-pink-50 font-bold">${r[1]}</td><td class="p-2 border border-pink-50 text-center">${r[2]}</td><td class="p-2 border border-pink-50 text-gray-500 italic text-[9px]">${r[3]}</td>`;
             tbody.appendChild(tr);
           });
-        }).catch(err => alert("Gagal memuat data admin. Periksa URL API."));
+        }).catch(err => alert("Gagal memuat data admin."));
     }
 
-    // Simpan RSVP via Fetch POST
     function handleFormSubmit(f) {
       event.preventDefault();
       const btn = document.getElementById("submit-btn");
       btn.innerText = "⏳ MENGIRIM...";
       btn.disabled = true;
-
       const rsvpData = { nama: f.nama.value, kehadiran: f.kehadiran.value, pesan: f.pesan.value };
 
-      fetch(WEB_APP_URL, {
-        method: 'POST',
-        mode: 'no-cors', 
-        body: JSON.stringify(rsvpData)
-      }).then(() => {
+      fetch(WEB_APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(rsvpData) })
+      .then(() => {
         f.reset();
         document.getElementById("success-msg").classList.remove("hidden");
         document.getElementById("rsvp-form").classList.add("hidden");
         btn.innerText = "TERKIRIM";
-      }).catch(err => {
-        alert("Gagal mengirim RSVP.");
-        btn.disabled = false;
-        btn.innerText = "KIRIM KONFIRMASI";
-      });
+      }).catch(err => { alert("Gagal mengirim RSVP."); btn.disabled = false; });
     }
 
-    // Ekspor Excel (Pecah Kolom Otomatis)
     function exportExcel() {
       if(masterData.length === 0) return alert("Data kosong");
       let csvContent = "sep=,\r\n\uFEFF"; 
@@ -272,19 +246,15 @@
       document.body.removeChild(link);
     }
 
-    // Timer Mundur
     const targetDate = new Date("Jan 16, 2026 09:00:00").getTime();
-    const x = setInterval(function() {
+    setInterval(function() {
       const now = new Date().getTime();
-      const distance = targetDate - now;
-      if (distance < 0) {
-        clearInterval(x);
-        return;
-      }
-      document.getElementById("days").innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-      document.getElementById("hours").innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-      document.getElementById("minutes").innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-      document.getElementById("seconds").innerHTML = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+      const diff = targetDate - now;
+      if (diff < 0) return;
+      document.getElementById("days").innerHTML = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+      document.getElementById("hours").innerHTML = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+      document.getElementById("minutes").innerHTML = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+      document.getElementById("seconds").innerHTML = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }, 1000);
   </script>
 </body>
