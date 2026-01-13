@@ -7,22 +7,27 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   
+  <title>Undangan Athaya Myesha Safiyyah</title>
+
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ronnyrochili-dotcom.github.io/undangan-athaya/">
   <meta property="og:title" content="Undangan Tasmiyah & Aqiqah Athaya">
-  <meta property="og:description" content="Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di acara kami.">
+  <meta property="og:description" content="Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam acara syukuran putri kami.">
+  
   <meta property="og:image" content="https://i.ibb.co.com/ycHPBsfz/foto-2-persegi-crop.png">
+  <meta property="og:image:secure_url" content="https://i.ibb.co.com/ycHPBsfz/foto-2-persegi-crop.png">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="600">
   <meta property="og:image:height" content="600">
+
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:image" content="https://i.ibb.co.com/ycHPBsfz/foto-2-persegi-crop.png">
 
-  <title>Undangan Athaya Myesha Safiyyah</title>
-  
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   
   <style>
-    /* CSS UNTUK TAMPILAN FULL TANPA SELA */
+    /* CSS UNTUK TAMPILAN FULL WINDOW (100dvh) */
     html, body { 
       height: 100dvh; 
       margin: 0; 
@@ -49,7 +54,8 @@
     
     .floating-music { position: fixed; bottom: 20px; left: 20px; z-index: 500; background: #ec4899; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(236,72,153,0.4); cursor: pointer; }
     .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.4); }
-    .btn-primary { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white; font-weight: bold; border-radius: 1rem; }
+    .btn-primary { background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); color: white; font-weight: bold; border-radius: 1rem; transition: transform 0.2s; }
+    .btn-primary:active { transform: scale(0.95); }
     .img-gallery { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
     .countdown-box { background: white; border-radius: 12px; padding: 10px; min-width: 65px; border: 1px solid #f9a8d4; text-align: center; }
     
@@ -138,8 +144,8 @@
       <section class="glass-card p-8 mb-16 space-y-4">
         <p class="font-bold text-gray-800 text-lg">Jum'at, 16 Januari 2026</p>
         <p class="text-gray-800 font-medium">09.00 WIB - Selesai</p>
-        <p class="text-gray-600 text-sm italic">Jl. Bumi Raya 1 Gg. Maju Bersama Jalur 3 No. 99, Kel. Baamang Barat, Sampit</p>
-        <a href="https://maps.google.com/?q=Baamang+Barat+Sampit" target="_blank" class="block w-full btn-primary py-4 shadow-lg text-sm uppercase">Buka Google Maps</a>
+        <p class="text-gray-600 text-sm italic leading-relaxed">Jl. Bumi Raya 1 Gg. Maju Bersama Jalur 3 No. 99, Kel. Baamang Barat, Sampit</p>
+        <a href="https://maps.app.goo.gl/YQJb2Z6pS9S6R1B58" target="_blank" class="block w-full btn-primary py-4 shadow-lg text-sm uppercase">Buka Google Maps</a>
       </section>
 
       <section class="mb-16">
@@ -155,7 +161,9 @@
       <section class="glass-card p-8 mb-16">
         <h3 class="text-xl font-bold text-pink-700 font-playfair mb-4 italic">Kado Digital</h3>
         <p class="text-gray-600 text-sm mb-6 leading-relaxed">Tanpa mengurangi rasa hormat, Bapak/Ibu/Saudara/i dapat memberikan Kado Tanda Kasih secara digital melalui QRIS:</p>
-        <button onclick="openModal()" class="w-full bg-white border-2 border-pink-400 text-pink-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3"><span>📸</span> TAMPILKAN QRIS</button>
+        <button onclick="openModal()" class="w-full bg-white border-2 border-pink-400 text-pink-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 active:bg-pink-50">
+          <span>📸</span> TAMPILKAN QRIS
+        </button>
       </section>
 
       <section class="glass-card p-8 mb-12">
@@ -163,7 +171,10 @@
         <form id="rsvp-form" onsubmit="handleFormSubmit(this)">
           <div class="space-y-4 text-left">
             <input type="text" name="nama" placeholder="Nama Lengkap" required class="w-full p-4 rounded-xl border border-pink-200 outline-none focus:border-pink-500">
-            <select name="kehadiran" class="w-full p-4 rounded-xl border border-pink-200 bg-white"><option value="Hadir">Insya Allah Hadir</option><option value="Berhalangan">Berhalangan Hadir</option></select>
+            <select name="kehadiran" class="w-full p-4 rounded-xl border border-pink-200 bg-white">
+              <option value="Hadir">Insya Allah Hadir</option>
+              <option value="Berhalangan">Berhalangan Hadir</option>
+            </select>
             <textarea name="pesan" rows="4" placeholder="Doa & Harapan..." required class="w-full p-4 rounded-xl border border-pink-200 outline-none focus:border-pink-500"></textarea>
             <button type="submit" id="submit-btn" class="w-full btn-primary py-4 shadow-xl uppercase tracking-widest">Kirim Konfirmasi</button>
           </div>
@@ -181,19 +192,22 @@
     const audio = document.getElementById("myAudio");
     let masterData = [];
 
-    // FUNGSI UTAMA FULLSCREEN SAAT KLIK
     function bukaUndangan() {
+      // Masuk ke fullscreen mode
       const docElm = document.documentElement;
       if (docElm.requestFullscreen) { docElm.requestFullscreen(); }
       else if (docElm.webkitRequestFullscreen) { docElm.webkitRequestFullscreen(); }
 
+      // Hilangkan overlay
       document.getElementById("overlay").style.opacity = "0";
       setTimeout(() => { document.getElementById("overlay").style.display = "none"; }, 1000);
-      audio.play();
+      
+      // Putar musik
+      audio.play().catch(e => console.log("Autoplay blocked"));
       document.getElementById("music-icon").innerHTML = "⏸️";
     }
 
-    // Ambil Nama Tamu dari URL
+    // Ambil Nama Tamu
     const urlParams = new URLSearchParams(window.location.search);
     const namaTamu = urlParams.get('to');
     if (namaTamu) { document.getElementById("nama-tamu-display").innerText = namaTamu.replace(/\+/g, ' '); }
@@ -246,7 +260,11 @@
         document.getElementById("success-msg").classList.remove("hidden");
         document.getElementById("rsvp-form").classList.add("hidden");
         btn.innerText = "TERKIRIM";
-      }).catch(err => { alert("Gagal mengirim RSVP."); btn.disabled = false; });
+      }).catch(err => { 
+        alert("Gagal mengirim RSVP."); 
+        btn.disabled = false; 
+        btn.innerText = "KIRIM KONFIRMASI";
+      });
     }
 
     function exportExcel() {
@@ -267,7 +285,7 @@
       document.body.removeChild(link);
     }
 
-    // TIMER MUNDUR
+    // COUNTDOWN LOGIC
     const targetDate = new Date("Jan 16, 2026 09:00:00").getTime();
     setInterval(function() {
       const now = new Date().getTime();
